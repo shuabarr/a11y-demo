@@ -18,7 +18,7 @@ var dir="across"
 	display: none;
 }
 
-[hidden][aria-hidden="false"] {
+.visuallyHidden {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -77,14 +77,14 @@ INPUT[type="text"]:focus {
 
 <table role="application" id="grid">
 
-<caption hidden aria-hidden="false">5 by 5 Crossword Grid</caption>
+<caption class="visuallyHidden">5 by 5 Crossword Grid</caption>
 
 <tr role="presentation">
 	 <td role="presentation" id="1"><input type="text" id="1_1" maxLength="1"></td>
 	 <td role="presentation" id="2"><input type="text" id="1_2" maxLength="1"></td>
 	 <td role="presentation" id="3"><input type="text" id="1_3" maxLength="1"></td>
 	 <td role="presentation" id="4"><input type="text" id="1_4" maxLength="1"></td>
-	 <td role="presentation" style="background: black;"><span hidden aria-hidden="false">Black square</span></td>
+	 <td role="presentation" style="background: black;"><span class="visuallyHidden">Black square</span></td>
 </tr>
 
 <tr role="presentation">
@@ -112,8 +112,8 @@ INPUT[type="text"]:focus {
 </tr>
 
 <tr role="presentation">
-	<td role="presentation" style="background: black;"><span hidden aria-hidden="false">Black square</span></td>
-	<td role="presentation" id="20><input type="text" id="5_2" maxLength="1"></td>
+	<td role="presentation" style="background: black;"><span class="visuallyHidden">Black square</span></td>
+	<td role="presentation" id="20"><input type="text" id="5_2" maxLength="1"></td>
 	<td role="presentation" id="21"><input type="text" id="5_3" maxLength="1"></td>
 	<td role="presentation" id="22"><input type="text" id="5_4" maxLength="1"></td>
 	<td role="presentation" id="23"><input type="text" id="5_5" maxLength="1"></td>
@@ -127,7 +127,7 @@ INPUT[type="text"]:focus {
 <section>
 <h2 hidden aria-hidden="false">Clues</h2>
 
-<h3><span aria-hidden="true">Across</span><span hidden aria-hidden="false">Across Clues</span></h3>
+<h3><span aria-hidden="true">Across</span><span class="visuallyHidden">Across Clues</span></h3>
 <!-- By putting the whole phrase "Across Clues" in a span, VO does not pause between words -->
 
 
@@ -135,54 +135,54 @@ INPUT[type="text"]:focus {
 <tbody>
 <tr role="presentation">
 	<td aria-label="1 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">1</span></td>
-	<td role="link"><a href="javascript:document.getElementById('1_1').focus();">Grp. that defends civil rights</a></td>
+	<td role="link"><a href="javascript:document.getElementById('1_1').focus();"><span class="visuallyHidden">1 Across, 4 letters.</span>Grp. that defends civil rights</a></td>
 </tr>
 <tr role="presentation">
 	<td aria-label="5 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">5</span></td>
-	<td role="link"><a href="javascript:document.getElementById('2_1').focus();">Horned African mammal</a></td>
+	<td role="link"><a href="javascript:document.getElementById('2_1').focus();"><span class="visuallyHidden">5 Across, 5 letters.</span>Horned African mammal</a></td>
 </tr>
 <tr role="presentation">
 	<td aria-label="7 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">7</span></td>
-	<td role="link"><a href="javascript:document.getElementById('3_1').focus();">Boyfriend who checks all the boxes, say</a></td>
+	<td role="link"><a href="javascript:document.getElementById('3_1').focus();"><span class="visuallyHidden">7 Across, 5 letters.</span>Boyfriend who checks all the boxes, say</a></td>
 </tr>
 <tr role="presentation">
 	<td aria-label="8 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">8</span></td>
-	<td role="link"><a href="javascript:document.getElementById('4_1').focus();">Boring</a></td>
+	<td role="link"><a href="javascript:document.getElementById('4_1').focus();"><span class="visuallyHidden">8 Across, 5 letters.</span>Boring</a></td>
 </tr>
 <tr role="presentation">
 	<td aria-label="9 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">9</span></td>
-	<td role="link"><a href="javascript:document.getElementById('5_2').focus();">Broadway backgrounds</a></td>
+	<td role="link"><a href="javascript:document.getElementById('5_2').focus();"><span class="visuallyHidden">9 Across, 4 letters.</span>Broadway backgrounds</a></td>
 </tr>
 </tbody>
 </table>
 
 
-<h3><span aria-hidden="true">Down</span><span hidden aria-hidden="false">Down Clues</span></h3>
+<h3><span aria-hidden="true">Down</span><span class="visuallyHidden">Down Clues</span></h3>
 <table>
 <tbody>
 <tr>
 	<td aria-label="1 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">1</span></td>
-	<td role="link"><a href="javascript:document.getElementById('1_1').focus();">Half of the McDonald's logo</a></td>
+	<td role="link"><a href="javascript:document.getElementById('1_1').focus();"><span class="visuallyHidden">1 Down, 4 letters.</span>Half of the McDonald's logo</a></td>
 </tr>
 
 <tr>
 	<td aria-label="2 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">2</span></td>
-	<td role="link"><a href="javascript:document.getElementById('1_2').focus();">Complete pandemonium</a></td>
+	<td role="link"><a href="javascript:document.getElementById('1_2').focus();"><span class="visuallyHidden">2 Down, 5 letters.</span>Complete pandemonium</a></td>
 </tr>
 
 <tr>
 	<td aria-label="3 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">3</span></td>
-	<td role="link"><a href="javascript:document.getElementById('1_3').focus();">Flexible, as a dancer's body</a></td>
+	<td role="link"><a href="javascript:document.getElementById('1_3').focus();"><span class="visuallyHidden">3 Down, 5 letters.</span>Flexible, as a dancer's body</a></td>
 </tr>
 
 <tr>
 	<td aria-label="4 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">4</span></td>
-	<td role="link"><a href="javascript:document.getElementById('1_4').focus();">Not edited</a></td>
+	<td role="link"><a href="javascript:document.getElementById('1_4').focus();"><span class="visuallyHidden">4 Down, 5 letters.</span>Not edited</a></td>
 </tr>
 
 <tr>
 	<td aria-label="6 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">6</span></td>
-	<td role="link"><a href="javascript:document.getElementById('2_5').focus();"><span aria-hidden="true">____</span><span hidden aria-hidden="false">Blank</span> law (physics class topic)</a></td>
+	<td role="link"><a href="javascript:document.getElementById('2_5').focus();"><span class="visuallyHidden">6 Down, 4 letters.</span><span aria-hidden="true">____</span><span class="visuallyHidden">Blank</span> law (physics class topic)</a></td>
 </tr>
 
 </table>
