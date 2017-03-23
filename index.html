@@ -1,3 +1,187 @@
-<html>
-<p>Hello</p>
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+
+<head>
+
+<script type="text/javascript">
+
+var dir="across"
+
+</script>
+
+<style type="text/css">
+[hidden] {
+	display: none;
+}
+
+[hidden][aria-hidden="false"] {
+	clip: rect(0, 0, 0, 0);
+	display: inherit;
+	position: absolute;
+}
+
+[hidden][aria-hidden="false"]:focus {
+	clip: auto;
+}
+
+INPUT[type="text"] {
+	text-transform: uppercase;
+	width: 3rem;
+	height: 3rem;
+	font-size: 300%;
+	background: rgba(0, 0, 0, 0);
+	border: none;
+}
+
+
+INPUT[type="text"]:focus {
+	background: gold;
+}
+
+.active {
+	background: lightblue;
+}
+
+
+#grid TD {
+	border: thin solid #ccc;
+	padding: 0;
+}
+
+#grid {
+	border-collapse: true;
+}	
+
+</style>
+
+
+	<title>Mini Crossword Puzzle: March 22, 2017</title>
+</head>
+
+
+<body>
+
+
+<section>
+
+
+<table role="application" id="grid">
+
+<caption hidden aria-hidden="false">5 by 5 Crossword Grid</caption>
+
+<tr role="presentation">
+	 <td role="presentation"><input type="text" id="1_1" maxLength="1"></td>
+	 <td role="presentation"><input type="text" id="1_2" maxLength="1"></td>
+	 <td role="presentation"><input type="text" id="1_3" maxLength="1"></td>
+	 <td role="presentation"><input type="text" id="1_4" maxLength="1"></td>
+	 <td role="presentation" style="background: black;"><span hidden aria-hidden="false">Black square</span></td>
+</tr>
+
+<tr role="presentation">
+	<td role="presentation"><input type="text" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="2_1" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="2_2" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="2_4" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="2_5" maxLength="1"></td>
+</tr>
+
+<tr role="presentation">
+	<td role="presentation"><input type="text" id="3_1" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="3_2" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="3_3" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="3_4" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="3_5" maxLength="1"></td>
+</tr>
+
+<tr role="presentation">
+	<td role="presentation"><input type="text" id="4_1" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="4_2" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="4_3" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="4_4" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="4_5" maxLength="1"></td>
+</tr>
+
+<tr role="presentation">
+	<td role="presentation" style="background: black;"><span hidden aria-hidden="false">Black square</span></td>
+	<td role="presentation"><input type="text" id="5_2" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="5_3" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="5_4" maxLength="1"></td>
+	<td role="presentation"><input type="text" id="5_5" maxLength="1"></td>
+</tr>
+
+
+</table>
+</section>
+
+
+<section>
+<h2 hidden aria-hidden="false">Clues</h2>
+
+<h3><span aria-hidden="true">Across</span><span hidden aria-hidden="false">Across Clues</span></h3>
+<!-- By putting the whole phrase "Across Clues" in a span, VO does not pause between words -->
+
+
+<table>
+<tbody>
+<tr role="presentation">
+	<td aria-label="1 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">1</span></td>
+	<td role="link"><a href="javascript:document.getElementById('1_1').focus();">Grp. that defends civil rights</a></td>
+</tr>
+<tr role="presentation">
+	<td aria-label="5 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">5</span></td>
+	<td role="link"><a href="javascript:document.getElementById('2_1').focus();">Horned African mammal</a></td>
+</tr>
+<tr role="presentation">
+	<td aria-label="7 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">7</span></td>
+	<td role="link"><a href="javascript:document.getElementById('3_1').focus();">Boyfriend who checks all the boxes, say</a></td>
+</tr>
+<tr role="presentation">
+	<td aria-label="8 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">8</span></td>
+	<td role="link"><a href="javascript:document.getElementById('4_1').focus();">Boring</a></td>
+</tr>
+<tr role="presentation">
+	<td aria-label="9 Across" role="presentation" tabindex="-1" title=""><span aria-hidden="true">9</span></td>
+	<td role="link"><a href="javascript:document.getElementById('5_2').focus();">Broadway backgrounds</a></td>
+</tr>
+</tbody>
+</table>
+
+
+<h3><span aria-hidden="true">Down</span><span hidden aria-hidden="false">Down Clues</span></h3>
+<table>
+<tbody>
+<tr>
+	<td aria-label="1 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">1</span></td>
+	<td role="link"><a href="javascript:document.getElementById('1_1').focus();">Half of the McDonald's logo</a></td>
+</tr>
+
+<tr>
+	<td aria-label="2 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">2</span></td>
+	<td role="link"><a href="javascript:document.getElementById('1_2').focus();">Complete pandemonium</a></td>
+</tr>
+
+<tr>
+	<td aria-label="3 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">3</span></td>
+	<td role="link"><a href="javascript:document.getElementById('1_3').focus();">Flexible, as a dancer's body</a></td>
+</tr>
+
+<tr>
+	<td aria-label="4 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">4</span></td>
+	<td role="link"><a href="javascript:document.getElementById('1_4').focus();">Not edited</a></td>
+</tr>
+
+<tr>
+	<td aria-label="6 Down" role="presentation" tabindex="-1" title=""><span aria-hidden="true">6</span></td>
+	<td role="link"><a href="javascript:document.getElementById('2_5').focus();"><span aria-hidden="true">____</span><span hidden aria-hidden="false">Blank</span> law (physics class topic)</a></td>
+</tr>
+
+</table>
+
+</section>
+
+</body>
 </html>
