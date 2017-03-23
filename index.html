@@ -32,9 +32,9 @@ var dir="across"
 
 INPUT[type="text"] {
 	text-transform: uppercase;
-	width: 3rem;
-	height: 3rem;
-	font-size: 300%;
+	width: 5rem;
+	height: 5rem;
+	font-size: 500%;
 	background: rgba(0, 0, 0, 0);
 	border: none;
 }
@@ -52,6 +52,12 @@ INPUT[type="text"]:focus {
 #grid TD {
 	border: thin solid #ccc;
 	padding: 0;
+	text-align: right;
+}
+
+.sqNum {
+	padding-right: 5%;
+	vertical-align: top;
 }
 
 #grid {
@@ -71,6 +77,8 @@ INPUT[type="text"]:focus {
 <h1>Mini Crossword Puzzle</h1>
 
 
+<p id="active-clue"></p>
+
 
 <section>
 
@@ -80,23 +88,23 @@ INPUT[type="text"]:focus {
 <caption class="visuallyHidden">5 by 5 Crossword Grid</caption>
 
 <tr role="presentation">
-	 <td role="presentation" id="1"><input type="text" id="1_1" maxLength="1"></td>
-	 <td role="presentation" id="2"><input type="text" id="1_2" maxLength="1"></td>
-	 <td role="presentation" id="3"><input type="text" id="1_3" maxLength="1"></td>
-	 <td role="presentation" id="4"><input type="text" id="1_4" maxLength="1"></td>
+	 <td role="presentation" id="1"><span class="sqNum" aria-hidden="true">1</span><span class="visuallyHidden">Square 1</span><input type="text" id="1_1" maxLength="1"></td>
+	 <td role="presentation" id="2"><span class="sqNum" aria-hidden="true">2</span><span class="visuallyHidden">Square 2</span><input type="text" id="1_2" maxLength="1"></td>
+	 <td role="presentation" id="3"><span class="sqNum" aria-hidden="true">3</span><span class="visuallyHidden">Square 3</span><input type="text" id="1_3" maxLength="1"></td>
+	 <td role="presentation" id="4"><span class="sqNum" aria-hidden="true">4</span><span class="visuallyHidden">Square 4</span><input type="text" id="1_4" maxLength="1"></td>
 	 <td role="presentation" style="background: black;"><span class="visuallyHidden">Black square</span></td>
 </tr>
 
 <tr role="presentation">
-	<td role="presentation" id="5"><input type="text" id="2_1" maxLength="1"></td>
+	<td role="presentation" id="5"><span class="sqNum" aria-hidden="true">5</span><span class="visuallyHidden">Square 5</span><input type="text" id="2_1" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="2_2" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="2_3" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="2_4" maxLength="1"></td>
-	<td role="presentation" id="6"><input type="text" id="2_5" maxLength="1"></td>
+	<td role="presentation" id="6"><span class="sqNum" aria-hidden="true">6</span><span class="visuallyHidden">Square 6</span><input type="text" id="2_5" maxLength="1"></td>
 </tr>
 
 <tr role="presentation">
-	<td role="presentation" id="7"><input type="text" id="3_1" maxLength="1"></td>
+	<td role="presentation" id="7"><span class="sqNum" aria-hidden="true">7</span><span class="visuallyHidden">Square 7</span><input type="text" id="3_1" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="3_2" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="3_3" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="3_4" maxLength="1"></td>
@@ -104,7 +112,7 @@ INPUT[type="text"]:focus {
 </tr>
 
 <tr role="presentation">
-	<td role="presentation" id="8"><input type="text" id="4_1" maxLength="1"></td>
+	<td role="presentation" id="8"><span class="sqNum" aria-hidden="true">8</span><span class="visuallyHidden">Square 8</span><input type="text" id="4_1" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="4_2" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="4_3" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="4_4" maxLength="1"></td>
@@ -113,7 +121,7 @@ INPUT[type="text"]:focus {
 
 <tr role="presentation">
 	<td role="presentation" style="background: black;"><span class="visuallyHidden">Black square</span></td>
-	<td role="presentation"><input type="text" id="5_2" maxLength="1"></td>
+	<td role="presentation" id="9"><span class="sqNum" aria-hidden="true">9</span><span class="visuallyHidden">Square 9</span><input type="text" id="5_2" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="5_3" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="5_4" maxLength="1"></td>
 	<td role="presentation"><input type="text" id="5_5" maxLength="1"></td>
