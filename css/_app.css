@@ -1,0 +1,209 @@
+/*
+Global styles.
+==================================================
+*/
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+*[hidden] {
+  display: none !important;
+}
+
+body {
+  background: #fff;
+  color: #000;
+}
+
+a {
+  color: #00f;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+small {
+  font-size: 11px;
+}
+
+/*
+Visually, but accessibly, hidden.
+==================================================
+*/
+
+.cw-accessible-hide {
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+
+  position: absolute;
+  top: -99999px;
+  left: -99999px;
+
+  width: 1px;
+  height: 1px;
+}
+
+/*
+Text alignment.
+==================================================
+*/
+
+.cw-align-right {
+  text-align: right;
+}
+
+/*
+Notice area.
+==================================================
+*/
+
+.cw-notice {
+  background: #efe;
+  border: 1px solid #9c9;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+/*
+Rudimentary grid.
+==================================================
+*/
+
+.grid-50,
+.grid-100,
+.grid-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.grid-container {
+  padding-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  max-width: 1200px;
+}
+
+.grid-container > hr {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.grid-100 {
+  clear: both;
+  overflow: hidden;
+  width: 100%;
+}
+
+.grid-50 {
+  float: left;
+  width: 50%;
+}
+
+@media screen and (max-width: 767px) {
+  .grid-50 {
+    float: none;
+    width: 100%;
+  }
+}
+
+/*
+Crossword styles.
+==================================================
+*/
+
+.cw-table {
+  width: 100%;
+}
+
+.cw-table__cell {
+  border: 1px solid #000;
+  width: 20%;
+}
+
+.cw-table__inner {
+  position: relative;
+}
+
+.cw-table__number {
+  /*
+    Make helper text not selectable.
+  */
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+
+  font-size: 16px;
+  line-height: 1;
+
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  z-index: 1;
+}
+
+.cw-table__input {
+  background: #fff;
+  color: #000;
+
+  border: 0;
+  outline: 0;
+
+  font-size: 75px;
+  text-align: center;
+  text-transform: uppercase;
+
+  width: 100%;
+  height: 100px;
+
+  position: relative;
+  z-index: 0;
+}
+
+.cw-table__input[readonly] {
+  background: #eee;
+  opacity: 0.25;
+}
+
+.cw-table__input[disabled] {
+  background: #000;
+  cursor: not-allowed;
+}
+
+.cw-table__input
+:not([disabled])
+:not([readonly]):focus {
+  background: #ffd700;
+}
+
+/* Adjust border thickness. */
+
+tr:first-child .cw-table__cell {
+  border-top-width: 2px;
+}
+
+.cw-table__cell:first-child {
+  border-left-width: 2px;
+}
+
+.cw-table__cell:last-child {
+  border-right-width: 2px;
+}
+
+tr:last-child .cw-table__cell {
+  border-bottom-width: 2px;
+}
