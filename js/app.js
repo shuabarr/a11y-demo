@@ -48,9 +48,9 @@ var APP = (function () {
     init: {
       // APP.init.handleTableInput
       handleTableInput: function () {
-        var e = 'input.handleTableInput'
+        var x = 'input.handleTableInput'
 
-        $('.cw-table').off(e).on(e, '.cw-table__input', function (e) {
+        $('.cw-table').off(x).on(x, '.cw-table__input', function (e) {
           var el = $(e.target)
           var value = el.val()
 
@@ -71,9 +71,9 @@ var APP = (function () {
       },
       // APP.init.handleClueClick
       handleClueClick: function () {
-        var e = 'click.handleClueClick'
+        var x = 'click.handleClueClick'
 
-        $('.cw-clues').off(e).on(e, '.cw-clues__link', function (e) {
+        $('.cw-clues').off(x).on(x, '.cw-clues__link', function (e) {
           e.preventDefault()
 
           var el = $(e.target).closest('[data-row][data-col]')
@@ -91,9 +91,9 @@ var APP = (function () {
       },
       // APP.init.handleToggleAnswers
       handleToggleAnswers: function () {
-        var e = 'click.handleToggleAnswers'
+        var x = 'click.handleToggleAnswers'
 
-        $('.cw-toggle-answers').off(e).on(e, function (e) {
+        $('.cw-toggle-answers').off(x).on(x, function (e) {
           e.preventDefault()
 
           // Get state.

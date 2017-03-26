@@ -1,4 +1,4 @@
-var GAME_DATA = {
+window.GAME_DATA = {
   answers: [
     ['A', 'C', 'L', 'U', '_'],
     ['R', 'H', 'I', 'N', 'O'],
