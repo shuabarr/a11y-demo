@@ -184,9 +184,7 @@ Crossword styles.
   cursor: not-allowed;
 }
 
-.cw-table__input
-:not([disabled])
-:not([readonly]):focus {
+.cw-table__input:not([disabled]):not([readonly]):focus {
   background: #ffd700;
 }
 
