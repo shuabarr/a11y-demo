@@ -21,14 +21,6 @@ var APP = (function () {
 
   // Expose innards.
   return {
-    // APP.state
-    state: {
-      cluesAcross: GAME_DATA.clues.across,
-      cluesDown: GAME_DATA.clues.down,
-      gameAnswers: GAME_DATA.answers,
-      userAnswers: [/* Set later. */],
-      showAnswers: false
-    },
     // APP.go
     go: function () {
       var init = APP.init
@@ -46,6 +38,38 @@ var APP = (function () {
     },
     // APP.init
     init: {
+      // APP.init.defaultState
+      defaultState: function () {
+        APP.state = GAME_DATA
+        APP.state.showAnswers = false
+
+        // Parse game answers.
+        APP.state.gameAnswers =
+          APP.utils.parseGameAnswers(
+            APP.state.gameAnswers
+          )
+
+        // Parse clues.
+        APP.state.cluesAcross =
+          APP.utils.parseClues(
+            APP.state.cluesAcross, 'across'
+          )
+
+        // Parse clues.
+        APP.state.cluesDown =
+          APP.utils.parseClues(
+            APP.state.cluesDown, 'down'
+          )
+
+        // Do user data exist?
+        if (!APP.state.userAnswers) {
+          // Create empty set.
+          APP.state.userAnswers =
+            APP.utils.emptyUserAnswers(
+              APP.state.gameAnswers
+            )
+        }
+      },
       // APP.init.handleTableInput
       handleTableInput: function () {
         var x = 'input.handleTableInput'
@@ -118,32 +142,6 @@ var APP = (function () {
             showValues: true
           })
         })
-      },
-      // APP.init.prepareData
-      prepareData: function () {
-        // Parse answers.
-        APP.state.gameAnswers =
-          APP.utils.parseGameAnswers(
-            APP.state.gameAnswers
-          )
-
-        // Create empty user answers.
-        APP.state.userAnswers =
-          APP.utils.emptyUserAnswers(
-            APP.state.gameAnswers
-          )
-
-        // Parse clues.
-        APP.state.cluesAcross =
-          APP.utils.parseClues(
-            APP.state.cluesAcross, 'across'
-          )
-
-        // Parse clues.
-        APP.state.cluesDown =
-          APP.utils.parseClues(
-            APP.state.cluesDown, 'down'
-          )
       },
       // APP.init.cluesAcrossTemplate
       cluesAcrossTemplate: function () {
