@@ -84,6 +84,7 @@ Rudimentary grid.
 .grid-50,
 .grid-100,
 .grid-container {
+  overflow: hidden;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -92,7 +93,6 @@ Rudimentary grid.
   padding-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  overflow: hidden;
   max-width: 1200px;
 }
 
@@ -103,7 +103,6 @@ Rudimentary grid.
 
 .grid-100 {
   clear: both;
-  overflow: hidden;
   width: 100%;
 }
 
@@ -114,6 +113,7 @@ Rudimentary grid.
 
 @media screen and (max-width: 767px) {
   .grid-50 {
+    clear: both;
     float: none;
     width: 100%;
   }
