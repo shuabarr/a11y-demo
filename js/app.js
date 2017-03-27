@@ -361,6 +361,7 @@ var APP = (function () {
 
         APP.utils.toggleMessage(isValid)
       },
+      // Toggle "done" message.
       toggleMessage: function (bool) {
         var h = 'hidden'
         var message = $('#_cw-done-message')
