@@ -61,7 +61,7 @@ var APP = (function () {
             APP.state.cluesDown, 'down'
           )
 
-        // Do user data exist?
+        // Does user data exist?
         if (!APP.state.userAnswers) {
           // Create empty set.
           APP.state.userAnswers =
