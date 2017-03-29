@@ -19,6 +19,12 @@ var APP = (function () {
     APP.go()
   })
 
+  // Key codes.
+  var UP_ARROW = 38
+  var LEFT_ARROW = 37
+  var RIGHT_ARROW = 39
+  var DOWN_ARROW = 40
+
   // Expose innards.
   return {
     // APP.go
@@ -70,9 +76,9 @@ var APP = (function () {
             )
         }
       },
-      // APP.init.handleTableInput
-      handleTableInput: function () {
-        var x = 'input.handleTableInput'
+      // APP.init.handleInputChange
+      handleInputChange: function () {
+        var x = 'input.handleInputChange'
 
         $('.cw-table').off(x).on(x, '.cw-table__input', function (e) {
           var el = $(e.target)
@@ -91,6 +97,115 @@ var APP = (function () {
             col: col,
             value: value
           })
+        })
+      },
+      // APP.init.handleInputArrows
+      handleInputArrows: function () {
+        var x = 'keydown.handleInputArrows'
+
+        $('.cw-table').off(x).on(x, '.cw-table__input', function (e) {
+          var el = $(e.target)
+          var key = e.keyCode
+
+          var arrowUp = key === UP_ARROW
+          var arrowLeft = key === LEFT_ARROW
+          var arrowRight = key === RIGHT_ARROW
+          var arrowDown = key === DOWN_ARROW
+
+          // Parse the DOM.
+          var td = el.closest('td')
+          var tdIndex = td.index()
+
+          var tr = td.closest('tr')
+          var trIndex = tr.index()
+
+          var tdAll = tr.find('td')
+          var trAll = tr.closest('tbody').find('tr')
+
+          // Ensure valid arrow press.
+          arrowUp = (
+            arrowUp &&
+            trIndex !== 0
+          )
+
+          arrowLeft = (
+            arrowLeft &&
+            tdIndex !== 0
+          )
+
+          arrowRight = (
+            arrowRight &&
+            tdIndex !== tdAll.length - 1
+          )
+
+          arrowDown = (
+            arrowDown &&
+            trIndex !== trAll.length - 1
+          )
+
+          // Set in conditional.
+          var inputNext
+
+          // =========
+          // UP ARROW.
+          // =========
+          if (arrowUp) {
+            inputNext = (
+              trAll
+              .filter('tr')
+              .eq(trIndex - 1)
+              .find('td')
+              .eq(tdIndex)
+              .find('input')
+            )
+
+          // ===========
+          // LEFT ARROW.
+          // ===========
+          } else if (arrowLeft) {
+            inputNext = (
+              tr
+              .find('td')
+              .eq(tdIndex - 1)
+              .find('input')
+            )
+
+          // ============
+          // RIGHT ARROW.
+          // ============
+          } else if (arrowRight) {
+            inputNext = (
+              tr
+              .find('td')
+              .eq(tdIndex + 1)
+              .find('input')
+            )
+
+          // ===========
+          // DOWN ARROW.
+          // ===========
+          } else if (arrowDown) {
+            inputNext = (
+              trAll
+              .filter('tr')
+              .eq(trIndex + 1)
+              .find('td')
+              .eq(tdIndex)
+              .find('input')
+            )
+          }
+
+          // Valid input?
+          var isInputValid = (
+            inputNext &&
+            inputNext.length &&
+            inputNext.not(':disabled')
+          )
+
+          // Focus next input.
+          if (isInputValid) {
+            inputNext.focus()
+          }
         })
       },
       // APP.init.handleClueClick
