@@ -19,6 +19,12 @@ var APP = (function () {
     APP.go()
   })
 
+  // Key codes.
+  var UP_ARROW = 38
+  var LEFT_ARROW = 37
+  var RIGHT_ARROW = 39
+  var DOWN_ARROW = 40
+
   // Expose innards.
   return {
     // APP.go
@@ -85,12 +91,35 @@ var APP = (function () {
           var col = el.attr('data-col')
 
           el.val(value)
+          el.select()
 
           APP.utils.updateUserAnswers({
             row: row,
             col: col,
             value: value
           })
+        })
+      },
+      // APP.init.handleInputFocus
+      handleInputFocus: function () {
+        var x1 = 'click.handleInputFocus'
+        var x2 = 'focus.handleInputFocus'
+
+        // Used later.
+        var timer
+
+        $('.cw-table').off(x1).on(x1, '.cw-table__input', function (e) {
+          timer = setTimeout(function () {
+            clearTimeout(timer)
+            $(e.target).select()
+          }, 0)
+        })
+
+        $('.cw-table').off(x2).on(x2, '.cw-table__input', function (e) {
+          timer = setTimeout(function () {
+            clearTimeout(timer)
+            $(e.target).select()
+          }, 0)
         })
       },
       // APP.init.handleInputArrows
@@ -111,24 +140,32 @@ var APP = (function () {
           var tdAll = tr.find('td')
           var trAll = tr.closest('tbody').find('tr')
 
+          // Any arrow key?
+          var isArrow = (
+            key === UP_ARROW ||
+            key === LEFT_ARROW ||
+            key === RIGHT_ARROW ||
+            key === DOWN_ARROW
+          )
+
           // Ensure valid arrow press.
-          var arrowUp = (
-            key === 38 &&
+          var isArrowUp = (
+            key === UP_ARROW &&
             trIndex !== 0
           )
 
-          var arrowLeft = (
-            key === 37 &&
+          var isArrowLeft = (
+            key === LEFT_ARROW &&
             tdIndex !== 0
           )
 
-          var arrowRight = (
-            key === 39 &&
+          var isArrowRight = (
+            key === RIGHT_ARROW &&
             tdIndex !== tdAll.length - 1
           )
 
-          var arrowDown = (
-            key === 40 &&
+          var isArrowDown = (
+            key === DOWN_ARROW &&
             trIndex !== trAll.length - 1
           )
 
@@ -138,7 +175,7 @@ var APP = (function () {
           // =========
           // UP ARROW.
           // =========
-          if (arrowUp) {
+          if (isArrowUp) {
             inputNext = (
               trAll
               .eq(trIndex - 1)
@@ -150,7 +187,7 @@ var APP = (function () {
           // ===========
           // LEFT ARROW.
           // ===========
-          } else if (arrowLeft) {
+          } else if (isArrowLeft) {
             inputNext = (
               tdAll
               .eq(tdIndex - 1)
@@ -160,7 +197,7 @@ var APP = (function () {
           // ============
           // RIGHT ARROW.
           // ============
-          } else if (arrowRight) {
+          } else if (isArrowRight) {
             inputNext = (
               tdAll
               .eq(tdIndex + 1)
@@ -170,7 +207,7 @@ var APP = (function () {
           // ===========
           // DOWN ARROW.
           // ===========
-          } else if (arrowDown) {
+          } else if (isArrowDown) {
             inputNext = (
               trAll
               .eq(trIndex + 1)
@@ -187,9 +224,18 @@ var APP = (function () {
             inputNext.not(':disabled')
           )
 
-          // Focus next input.
+          // Cancel default action.
+          if (isArrow) {
+            e.preventDefault()
+          }
+
+          // "Select" next input.
           if (isInputValid) {
-            inputNext.focus()
+            inputNext.select()
+
+          // Or, current input.
+          } else {
+            el.select()
           }
         })
       },
@@ -210,7 +256,7 @@ var APP = (function () {
             '[data-col="' + col + '"]'
           ].join('')
 
-          $(input).focus()
+          $(input).select()
         })
       },
       // APP.init.handleToggleAnswers

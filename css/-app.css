@@ -120,7 +120,7 @@ Rudimentary grid.
 }
 
 /*
-Crossword styles.
+Table styles.
 ==================================================
 */
 
@@ -156,6 +156,29 @@ Crossword styles.
   z-index: 1;
 }
 
+/* Adjust border thickness. */
+
+tr:first-child .cw-table__cell {
+  border-top-width: 2px;
+}
+
+.cw-table__cell:first-child {
+  border-left-width: 2px;
+}
+
+.cw-table__cell:last-child {
+  border-right-width: 2px;
+}
+
+tr:last-child .cw-table__cell {
+  border-bottom-width: 2px;
+}
+
+/*
+Input styles.
+==================================================
+*/
+
 .cw-table__input {
   background: #fff;
   color: #000;
@@ -188,20 +211,22 @@ Crossword styles.
   background: #ffd700;
 }
 
-/* Adjust border thickness. */
-
-tr:first-child .cw-table__cell {
-  border-top-width: 2px;
+.cw-table__input::selection {
+  /*
+    No selection color, since we highlight
+    the entire square, and only one
+    character can exist at a time.
+  */
+  background: transparent;
 }
 
-.cw-table__cell:first-child {
-  border-left-width: 2px;
-}
+.cw-table__input::-moz-selection {
+  /*
+    (For Firefox)
 
-.cw-table__cell:last-child {
-  border-right-width: 2px;
-}
-
-tr:last-child .cw-table__cell {
-  border-bottom-width: 2px;
+    No selection color, since we highlight
+    the entire square, and only one
+    character can exist at a time.
+  */
+  background: transparent;
 }
