@@ -19,12 +19,6 @@ var APP = (function () {
     APP.go()
   })
 
-  // Key codes.
-  var UP_ARROW = 38
-  var LEFT_ARROW = 37
-  var RIGHT_ARROW = 39
-  var DOWN_ARROW = 40
-
   // Expose innards.
   return {
     // APP.go
@@ -107,11 +101,6 @@ var APP = (function () {
           var el = $(e.target)
           var key = e.keyCode
 
-          var arrowUp = key === UP_ARROW
-          var arrowLeft = key === LEFT_ARROW
-          var arrowRight = key === RIGHT_ARROW
-          var arrowDown = key === DOWN_ARROW
-
           // Parse the DOM.
           var td = el.closest('td')
           var tdIndex = td.index()
@@ -123,23 +112,23 @@ var APP = (function () {
           var trAll = tr.closest('tbody').find('tr')
 
           // Ensure valid arrow press.
-          arrowUp = (
-            arrowUp &&
+          var arrowUp = (
+            key === 38 &&
             trIndex !== 0
           )
 
-          arrowLeft = (
-            arrowLeft &&
+          var arrowLeft = (
+            key === 37 &&
             tdIndex !== 0
           )
 
-          arrowRight = (
-            arrowRight &&
+          var arrowRight = (
+            key === 39 &&
             tdIndex !== tdAll.length - 1
           )
 
-          arrowDown = (
-            arrowDown &&
+          var arrowDown = (
+            key === 40 &&
             trIndex !== trAll.length - 1
           )
 
@@ -152,7 +141,6 @@ var APP = (function () {
           if (arrowUp) {
             inputNext = (
               trAll
-              .filter('tr')
               .eq(trIndex - 1)
               .find('td')
               .eq(tdIndex)
@@ -164,8 +152,7 @@ var APP = (function () {
           // ===========
           } else if (arrowLeft) {
             inputNext = (
-              tr
-              .find('td')
+              tdAll
               .eq(tdIndex - 1)
               .find('input')
             )
@@ -175,8 +162,7 @@ var APP = (function () {
           // ============
           } else if (arrowRight) {
             inputNext = (
-              tr
-              .find('td')
+              tdAll
               .eq(tdIndex + 1)
               .find('input')
             )
@@ -187,7 +173,6 @@ var APP = (function () {
           } else if (arrowDown) {
             inputNext = (
               trAll
-              .filter('tr')
               .eq(trIndex + 1)
               .find('td')
               .eq(tdIndex)
