@@ -13,7 +13,7 @@ window.GAME_DATA = {
       col: 1,
       word: 'ACLU',
       hint: 'Grp. that defends civil rights',
-      hintAlt: 'Group that defends civil rights'
+      hintAlt: ''
     },
     {
       number: 5,
