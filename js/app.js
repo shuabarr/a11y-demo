@@ -395,7 +395,7 @@ var APP = (function () {
             clue.number,
             direction + ',',
             clue.word.length,
-            'letters'
+            'letters.'
           ].join(' ')
         })
 
