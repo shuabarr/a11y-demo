@@ -7,35 +7,32 @@
 <title>Mini Crossword Puzzle</title>
 <link rel="stylesheet" href="./css/master.css" />
 </head>
-<body>
 
-<div class="grid-container">
+<body class="grid-container">
 
-  <header role="banner" class="grid-100">
-    <h1>
-      Mini Crossword Puzzle
-    </h1>
-  </header>
+<main role="main" class="grid-100">
 
-  <div
-    aria-hidden="true"
-    hidden="hidden"
-
-    class="grid-100"
-    id="_cw-done-message"
-  >
-    <div role="alert" class="cw-notice">
-      <p>
-        <b>
-          Congrats! You completed the puzzle. :)
-        </b>
-      </p>
-    </div>
-  </div>
-
-  <main role="main" class="grid-50">
-
-    <table role="presentation" class="cw-table">
+  <h1>Mini Crossword Puzzle</h1>
+  
+	  <div
+		aria-hidden="true"
+		hidden="hidden"
+		class="grid-100"
+		id="_cw-done-message"
+	  >
+		<div role="alert" class="cw-notice">
+		  <p>
+			<b>
+			  Congrats! You completed the puzzle. :)
+			</b>
+		  </p>
+		</div>
+	  </div>
+  
+  
+  
+<div class="grid-50">
+      <table role="presentation" class="cw-table">
       <caption class="cw-accessible-hide">
         5 by 5 crossword grid
       </caption>
@@ -43,8 +40,8 @@
         <!-- Populated via JS template. -->
       </tbody>
     </table>
+</div>
 
-  </main>
 
   <section role="complementary" class="grid-50">
 
@@ -89,7 +86,8 @@
     </p>
 
   </section>
-
+  </main>
+  
   <footer role="contentinfo" class="grid-100">
     <p>
       <small>
@@ -99,7 +97,7 @@
     </p>
   </footer>
 
-</div>
+
 
 <!--
   This template is used with the game
