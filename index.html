@@ -116,14 +116,12 @@
           <div class="cw-table__inner">
 
             {{#if number}}
-              <small class="cw-table__number">
-                <span aria-hidden="true">
-                  {{number}}
-                </span>
+              <label for="{{row}}{{col}}" class="cw-table__number">
                 <span class="cw-accessible-hide">
-                  Square {{number}}
+                  Square 
                 </span>
-              </small>
+                  {{number}}
+              </label>
             {{/if}}
 
             <input
@@ -134,6 +132,8 @@
               {{#if readonly}}
                 readonly="readonly"
               {{/if}}
+	
+			  id="{{row}}{{col}}"
 
               data-row="{{row}}"
               data-col="{{col}}"
