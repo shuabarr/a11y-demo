@@ -572,20 +572,25 @@ var APP = (function () {
       setContext: function (o) {
         o = o || {}
 
-        APP.state.context.direction = (
-          o.direction ||
-          APP.state.context.direction
-        )
+        var direction = o.direction
+        var row = o.row
+        var col = o.col
 
-        APP.state.context.col = (
-          o.col ||
-          APP.state.context.col
-        )
+        if (!direction) {
+          direction = APP.state.context.direction
+        }
 
-        APP.state.context.row = (
-          o.row ||
-          APP.state.context.row
-        )
+        if (isNaN(row)) {
+          row = APP.state.context.row
+        }
+
+        if (isNaN(col)) {
+          col = APP.state.context.col
+        }
+
+        APP.state.context.direction = direction
+        APP.state.context.row = row
+        APP.state.context.col = col
 
         APP.utils.updateSquare(APP.state.context)
         APP.utils.updateDirection(APP.state.context)
