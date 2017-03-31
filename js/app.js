@@ -21,13 +21,18 @@ var APP = (function () {
 
   // Direction context.
   var ACROSS = 'across'
+  var UP = 'up'
+  var LEFT = 'left'
+  var RIGHT = 'right'
   var DOWN = 'down'
 
   // Key codes.
-  var UP_ARROW = 38
-  var LEFT_ARROW = 37
-  var RIGHT_ARROW = 39
-  var DOWN_ARROW = 40
+  var KEY_BACKSPACE = 8
+  var KEY_DELETE = 46
+  var KEY_UP_ARROW = 38
+  var KEY_LEFT_ARROW = 37
+  var KEY_RIGHT_ARROW = 39
+  var KEY_DOWN_ARROW = 40
 
   // Expose innards.
   return {
@@ -102,16 +107,26 @@ var APP = (function () {
 
           el.val(value)
 
+          // Update user answers.
           APP.utils.updateUserAnswers({
             row: row,
             col: col,
             value: value
           })
 
-          APP.utils.updateContext({
-            row: row,
-            col: col
-          })
+          // Set in conditional.
+          var whereTo
+
+          if (APP.state.context.direction === DOWN) {
+            whereTo = DOWN
+          } else {
+            whereTo = RIGHT
+          }
+
+          // Is there a value?
+          if (value) {
+            APP.utils.moveFromTo(el, whereTo)
+          }
         })
       },
       // APP.init.handleInputBlur
@@ -128,10 +143,10 @@ var APP = (function () {
         var x1 = 'click.handleInputFocus'
         var x2 = 'focus.handleInputFocus'
 
-        // Used later.
-        var timer
+        var parent = '.cw-table'
+        var child = '.cw-table__input:not([disabled]):not([readonly])'
 
-        $('.cw-table').off(x1).on(x1, '.cw-table__input', function (e) {
+        $(parent).off(x1).on(x1, child, function (e) {
           var el = $(e.target)
           var row = el.attr('data-row')
           var col = el.attr('data-col')
@@ -142,7 +157,7 @@ var APP = (function () {
           })
         })
 
-        $('.cw-table').off(x2).on(x2, '.cw-table__input', function (e) {
+        $(parent).off(x2).on(x2, child, function (e) {
           var el = $(e.target)
           var row = el.attr('data-row')
           var col = el.attr('data-col')
@@ -153,132 +168,77 @@ var APP = (function () {
           })
         })
       },
-      // APP.init.handleInputArrows
-      handleInputArrows: function () {
-        var x = 'keydown.handleInputArrows'
+      // APP.init.handleInputKeys
+      handleInputKeys: function () {
+        var x = 'keydown.handleInputKeys'
 
         $('.cw-table').off(x).on(x, '.cw-table__input', function (e) {
           var el = $(e.target)
+          var value = el.val()
           var key = e.keyCode
 
-          // Parse the DOM.
-          var td = el.closest('td')
-          var tdIndex = td.index()
-
-          var tr = td.closest('tr')
-          var trIndex = tr.index()
-
-          var tdAll = tr.find('td')
-          var trAll = tr.closest('tbody').find('tr')
+          // Which keys?
+          var isArrowUp = key === KEY_UP_ARROW
+          var isArrowLeft = key === KEY_LEFT_ARROW
+          var isArrowRight = key === KEY_RIGHT_ARROW
+          var isArrowDown = key === KEY_DOWN_ARROW
+          var isBackspace = key === KEY_BACKSPACE
+          var isDelete = key === KEY_DELETE
 
           // Any arrow key?
-          var isArrow = (
-            key === UP_ARROW ||
-            key === LEFT_ARROW ||
-            key === RIGHT_ARROW ||
-            key === DOWN_ARROW
+          var isArrowAny = (
+            isArrowUp ||
+            isArrowLeft ||
+            isArrowRight ||
+            isArrowDown
           )
 
-          // Ensure valid arrow press.
-          var isArrowUp = (
-            key === UP_ARROW &&
-            trIndex !== 0
-          )
-
-          var isArrowLeft = (
-            key === LEFT_ARROW &&
-            tdIndex !== 0
-          )
-
-          var isArrowRight = (
-            key === RIGHT_ARROW &&
-            tdIndex !== tdAll.length - 1
-          )
-
-          var isArrowDown = (
-            key === DOWN_ARROW &&
-            trIndex !== trAll.length - 1
-          )
-
-          // Set in conditional.
-          var context = {}
-          var inputNext
+          // Cancel action?
+          if (isArrowAny) {
+            e.preventDefault()
+          }
 
           // =========
           // UP ARROW.
           // =========
           if (isArrowUp) {
-            context.direction = DOWN
-
-            inputNext = (
-              trAll
-              .eq(trIndex - 1)
-              .find('td')
-              .eq(tdIndex)
-              .find('input')
-            )
+            APP.utils.moveFromTo(el, UP)
 
           // ===========
           // LEFT ARROW.
           // ===========
           } else if (isArrowLeft) {
-            context.direction = ACROSS
-
-            inputNext = (
-              tdAll
-              .eq(tdIndex - 1)
-              .find('input')
-            )
+            APP.utils.moveFromTo(el, LEFT)
 
           // ============
           // RIGHT ARROW.
           // ============
           } else if (isArrowRight) {
-            context.direction = ACROSS
-
-            inputNext = (
-              tdAll
-              .eq(tdIndex + 1)
-              .find('input')
-            )
+            APP.utils.moveFromTo(el, RIGHT)
 
           // ===========
           // DOWN ARROW.
           // ===========
           } else if (isArrowDown) {
-            context.direction = DOWN
+            APP.utils.moveFromTo(el, DOWN)
 
-            inputNext = (
-              trAll
-              .eq(trIndex + 1)
-              .find('td')
-              .eq(tdIndex)
-              .find('input')
-            )
-          }
+          // ====================
+          // BACKSPACE or DELETE.
+          // ====================
+          } else if (isBackspace || isDelete) {
+            // No value?
+            if (!value) {
+              // Prevent deletion on key-up
+              // in the destination square.
+              e.preventDefault()
 
-          // Valid input?
-          var isInputValid = (
-            inputNext &&
-            inputNext.length &&
-            inputNext.not(':disabled')
-          )
-
-          // Cancel default action.
-          if (isArrow) {
-            e.preventDefault()
-          }
-
-          // Valid input?
-          if (isInputValid) {
-            // Get row and col.
-            context.row = inputNext.attr('data-row')
-            context.col = inputNext.attr('data-col')
-          }
-
-          // Update context?
-          if (Object.keys(context).length) {
-            APP.utils.updateContext(context)
+              // Which direction?
+              if (APP.state.context.direction === DOWN) {
+                APP.utils.moveFromTo(el, UP)
+              } else {
+                APP.utils.moveFromTo(el, LEFT)
+              }
+            }
           }
         })
       },
@@ -531,7 +491,7 @@ var APP = (function () {
         // Game finished?
         APP.utils.isGameFinished()
       },
-      // Determine if solved.
+      // APP.utils.isGameFinished
       isGameFinished: function () {
         var isValid =
           _.isEqual(
@@ -541,7 +501,7 @@ var APP = (function () {
 
         APP.utils.toggleMessage(isValid)
       },
-      // Toggle "done" message.
+      // APP.utils.toggleMessage
       toggleMessage: function (bool) {
         var h = 'hidden'
         var message = $('#_cw-done-message')
@@ -554,7 +514,7 @@ var APP = (function () {
 
         message.attr('aria-hidden', !bool)
       },
-      // Update [X,Y] and direction.
+      // APP.utils.updateContext
       updateContext: function (o) {
         o = o || {}
 
@@ -583,7 +543,7 @@ var APP = (function () {
         APP.utils.updateSquare(APP.state.context)
         APP.utils.updateDirection(APP.state.context)
       },
-      // Focus active square.
+      // APP.utils.updateSquare
       updateSquare: function (o) {
         o = o || {}
 
@@ -602,7 +562,7 @@ var APP = (function () {
 
         $(str).select()
       },
-      // Update direction UI.
+      // APP.utils.updateDirection
       updateDirection: function (o) {
         o = o || {}
 
@@ -642,6 +602,115 @@ var APP = (function () {
 
         oldEl.removeClass(c)
         newEl.addClass(c)
+      },
+      // APP.utils.moveFromTo
+      moveFromTo: function (el, whereTo) {
+        // Parse the DOM.
+        var td = el.closest('td')
+        var tdIndex = td.index()
+
+        var tr = td.closest('tr')
+        var trIndex = tr.index()
+
+        var tdAll = tr.find('td')
+        var trAll = tr.closest('tbody').find('tr')
+
+        // Ensure valid arrow press.
+        var moveUp = (
+          whereTo === UP &&
+          trIndex !== 0
+        )
+
+        var moveLeft = (
+          whereTo === LEFT &&
+          tdIndex !== 0
+        )
+
+        var moveRight = (
+          whereTo === RIGHT &&
+          tdIndex !== tdAll.length - 1
+        )
+
+        var moveDown = (
+          whereTo === DOWN &&
+          trIndex !== trAll.length - 1
+        )
+
+        // Set in conditional.
+        var context = {}
+        var inputNext
+
+        // =========
+        // MOVE: UP.
+        // =========
+        if (moveUp) {
+          context.direction = DOWN
+
+          inputNext = (
+            trAll
+            .eq(trIndex - 1)
+            .find('td')
+            .eq(tdIndex)
+            .find('input')
+          )
+
+        // ===========
+        // MOVE: LEFT.
+        // ===========
+        } else if (moveLeft) {
+          context.direction = ACROSS
+
+          inputNext = (
+            tdAll
+            .eq(tdIndex - 1)
+            .find('input')
+          )
+
+        // ============
+        // MOVE: RIGHT.
+        // ============
+        } else if (moveRight) {
+          context.direction = ACROSS
+
+          inputNext = (
+            tdAll
+            .eq(tdIndex + 1)
+            .find('input')
+          )
+
+        // ===========
+        // MOVE: DOWN.
+        // ===========
+        } else if (moveDown) {
+          context.direction = DOWN
+
+          inputNext = (
+            trAll
+            .eq(trIndex + 1)
+            .find('td')
+            .eq(tdIndex)
+            .find('input')
+          )
+        }
+
+        // Check validity.
+        var isInputValid = (
+          inputNext &&
+          inputNext.length &&
+          inputNext.not(':disabled')
+        )
+
+        // Valid input?
+        if (isInputValid) {
+          // Get row and col.
+          context.row = inputNext.attr('data-row')
+          context.col = inputNext.attr('data-col')
+        }
+
+        // Update context?
+        if (Object.keys(context).length) {
+          APP.utils.updateContext(context)
+        }
       }
     }
   }
