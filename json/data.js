@@ -43,7 +43,7 @@ window.GAME_DATA = {
       number: 9,
       row: 5,
       col: 2,
-      word: 'SET',
+      word: 'SETS',
       hint: 'Broadway backgrounds',
       hintAlt: ''
     }
