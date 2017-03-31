@@ -108,7 +108,7 @@ var APP = (function () {
             value: value
           })
 
-          APP.utils.setContext({
+          APP.utils.updateContext({
             row: row,
             col: col
           })
@@ -136,14 +136,10 @@ var APP = (function () {
           var row = el.attr('data-row')
           var col = el.attr('data-col')
 
-          timer = setTimeout(function () {
-            clearTimeout(timer)
-
-            APP.utils.setContext({
-              row: row,
-              col: col
-            })
-          }, 0)
+          APP.utils.updateContext({
+            row: row,
+            col: col
+          })
         })
 
         $('.cw-table').off(x2).on(x2, '.cw-table__input', function (e) {
@@ -151,14 +147,10 @@ var APP = (function () {
           var row = el.attr('data-row')
           var col = el.attr('data-col')
 
-          timer = setTimeout(function () {
-            clearTimeout(timer)
-
-            APP.utils.setContext({
-              row: row,
-              col: col
-            })
-          }, 0)
+          APP.utils.updateContext({
+            row: row,
+            col: col
+          })
         })
       },
       // APP.init.handleInputArrows
@@ -286,7 +278,7 @@ var APP = (function () {
 
           // Update context?
           if (Object.keys(context).length) {
-            APP.utils.setContext(context)
+            APP.utils.updateContext(context)
           }
         })
       },
@@ -302,13 +294,7 @@ var APP = (function () {
           var row = el.attr('data-row') - 1
           var col = el.attr('data-col') - 1
 
-          var input = [
-            '.cw-table__input',
-            '[data-row="' + row + '"]',
-            '[data-col="' + col + '"]'
-          ].join('')
-
-          APP.utils.setContext({
+          APP.utils.updateContext({
             direction: direction,
             row: row,
             col: col
@@ -569,7 +555,7 @@ var APP = (function () {
         message.attr('aria-hidden', !bool)
       },
       // Update [X,Y] and direction.
-      setContext: function (o) {
+      updateContext: function (o) {
         o = o || {}
 
         var direction = o.direction
@@ -588,9 +574,11 @@ var APP = (function () {
           col = APP.state.context.col
         }
 
-        APP.state.context.direction = direction
-        APP.state.context.row = row
-        APP.state.context.col = col
+        APP.state.context = {
+          direction: direction,
+          row: row,
+          col: col
+        }
 
         APP.utils.updateSquare(APP.state.context)
         APP.utils.updateDirection(APP.state.context)
@@ -612,12 +600,7 @@ var APP = (function () {
           '"]'
         ].join('')
 
-        var el = $(str)
-        var hasFocus = el.is(':focus')
-
-        if (!hasFocus) {
-          el.select()
-        }
+        $(str).select()
       },
       // Update direction UI.
       updateDirection: function (o) {
@@ -649,13 +632,16 @@ var APP = (function () {
           '"]'
         ].join('')
 
-        var el = [
+        var str = [
           parent,
           child
         ].join(' ')
 
-        $('.' + c).removeClass(c)
-        $(el).addClass(c)
+        var oldEl = $('.' + c)
+        var newEl = $(str)
+
+        oldEl.removeClass(c)
+        newEl.addClass(c)
       }
     }
   }
