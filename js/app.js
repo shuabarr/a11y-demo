@@ -293,6 +293,7 @@ var APP = (function () {
       cluesAcrossTemplate: function () {
         // Get template.
         var template = $('#_cw-clue-template').html()
+        template = template.replace(/\s+/g, ' ')
         template = Handlebars.compile(template)
 
         // Apply template.
@@ -303,6 +304,7 @@ var APP = (function () {
       cluesDownTemplate: function () {
         // Get template.
         var template = $('#_cw-clue-template').html()
+        template = template.replace(/\s+/g, ' ')
         template = Handlebars.compile(template)
 
         // Apply template.
@@ -319,6 +321,7 @@ var APP = (function () {
 
         // Get template.
         var template = $('#_cw-table-template').html()
+        template = template.replace(/\s+/g, ' ')
         template = Handlebars.compile(template)
 
         // Build template data.

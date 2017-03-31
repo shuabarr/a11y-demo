@@ -12,84 +12,100 @@
 
 <div class="grid-container">
 
-<main role="main" class="grid-100">
+  <main role="main">
 
-  <h1>Mini Crossword Puzzle</h1>
-  
-	  <div
-		aria-hidden="true"
-		hidden="hidden"
-		class="grid-100"
-		id="_cw-done-message"
-	  >
-		<div role="alert" class="cw-notice">
-		  <p>
-			<b>
-			  Congrats! You completed the puzzle. :)
-			</b>
-		  </p>
-		</div>
-	  </div>
-  
-  
-  
-<div class="grid-50">
-      <table role="presentation" class="cw-table">
-      <caption class="cw-accessible-hide">
-        5 by 5 crossword grid
-      </caption>
-      <tbody class="cw-table__tbody">
+    <h1 class="grid-100">
+      Mini Crossword Puzzle
+    </h1>
+
+    <div
+  		aria-hidden="true"
+  		hidden="hidden"
+      class="grid-100"
+  		id="_cw-done-message"
+    >
+  		<div role="alert" class="cw-notice">
+  		  <p>
+    			<b>
+    			  Congrats! You completed the puzzle. :)
+    			</b>
+  		  </p>
+  		</div>
+    </div>
+
+    <section
+      class="
+        grid-50
+        push-50
+
+        tablet-grid-50
+        tablet-push-50
+      "
+    >
+
+      <h2>
+        <span aria-hidden="true">
+          Across
+        </span>
+        <span class="cw-accessible-hide">
+          Across Clues
+        </span>
+      </h2>
+
+      <ol class="cw-clues cw-clues--across">
         <!-- Populated via JS template. -->
-      </tbody>
-    </table>
-</div>
+      </ol>
 
+      <hr role="presentation"/>
 
-  <section class="grid-50">
+      <h2>
+        <span aria-hidden="true">
+          Down
+        </span>
+        <span class="cw-accessible-hide">
+          Down Clues
+        </span>
+      </h2>
 
-    <h2>
-      <span aria-hidden="true">
-        Across
-      </span>
-      <span class="cw-accessible-hide">
-        Across Clues
-      </span>
-    </h2>
+      <ol class="cw-clues cw-clues--down">
+        <!-- Populated via JS template. -->
+      </ol>
 
-    <ol class="cw-clues cw-clues--across">
-      <!-- Populated via JS template. -->
-    </ol>
+      <hr role="presentation"/>
 
-    <hr role="presentation"/>
+      <p>
+        <a
+          class="cw-toggle-answers"
+          href="#"
+          tabindex="0"
+        >
+          Toggle answers
+        </a>
+      </p>
 
-    <h2>
-      <span aria-hidden="true">
-        Down
-      </span>
-      <span class="cw-accessible-hide">
-        Down Clues
-      </span>
-    </h2>
+    </section>
 
-    <ol class="cw-clues cw-clues--down">
-      <!-- Populated via JS template. -->
-    </ol>
+    <div
+      class="
+        grid-50
+        pull-50
 
-    <hr role="presentation"/>
+        tablet-grid-50
+        tablet-pull-50
+      "
+    >
+      <table role="presentation" class="cw-table">
+        <caption class="cw-accessible-hide">
+          5 by 5 crossword grid
+        </caption>
+        <tbody class="cw-table__tbody">
+          <!-- Populated via JS template. -->
+        </tbody>
+      </table>
+    </div>
 
-    <p>
-      <a
-        class="cw-toggle-answers"
-        href="#"
-        tabindex="0"
-      >
-        Toggle answers
-      </a>
-    </p>
-
-  </section>
   </main>
-  
+
   <footer role="contentinfo" class="grid-100">
     <p>
       <small>
@@ -118,9 +134,12 @@
           <div class="cw-table__inner">
 
             {{#if number}}
-              <label for="r{{row}}_c{{col}}" class="cw-table__number">
+              <label
+                for="r{{row}}_c{{col}}"
+                class="cw-table__number"
+              >
                 <span class="cw-accessible-hide">
-                  Square 
+                  Square
                 </span>
                   {{number}}
               </label>
@@ -134,13 +153,13 @@
               {{#if readonly}}
                 readonly="readonly"
               {{/if}}
-	
-			  id="r{{row}}_c{{col}}"
 
               data-row="{{row}}"
               data-col="{{col}}"
 
               class="cw-table__input"
+              id="r{{row}}_c{{col}}"
+
               maxlength="1"
               type="text"
               value="{{value}}"
@@ -164,7 +183,6 @@
 <script type="text/template" id="_cw-clue-template">
   {{#each this}}
     <li value="{{number}}">
-
 
       <a
         class="cw-clues__link"

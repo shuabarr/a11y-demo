@@ -22,6 +22,10 @@ body {
   color: #000;
 }
 
+main {
+  padding-top: 20px;
+}
+
 a {
   color: #00f;
   cursor: pointer;
@@ -74,49 +78,6 @@ Notice area.
   padding-left: 20px;
   padding-right: 20px;
   margin-bottom: 20px;
-}
-
-/*
-Rudimentary grid.
-==================================================
-*/
-
-.grid-50,
-.grid-100,
-.grid-container {
-  overflow: hidden;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.grid-container {
-  padding-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1200px;
-}
-
-.grid-container > hr {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.grid-100 {
-  clear: both;
-  width: 100%;
-}
-
-.grid-50 {
-  float: left;
-  width: 50%;
-}
-
-@media screen and (max-width: 767px) {
-  .grid-50 {
-    clear: both;
-    float: none;
-    width: 100%;
-  }
 }
 
 /*
