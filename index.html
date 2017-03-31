@@ -56,7 +56,7 @@
         <!-- Populated via JS template. -->
       </ol>
 
-      <hr role="presentation"/>
+      <hr role="presentation" />
 
       <h2>
         <span aria-hidden="true">
@@ -71,7 +71,7 @@
         <!-- Populated via JS template. -->
       </ol>
 
-      <hr role="presentation"/>
+      <hr role="presentation" />
 
       <p>
         <a
@@ -98,6 +98,13 @@
         <caption class="cw-accessible-hide">
           5 by 5 crossword grid
         </caption>
+        <colgroup>
+          <col data-index="0" />
+          <col data-index="1" />
+          <col data-index="2" />
+          <col data-index="3" />
+          <col data-index="4" />
+        </colgroup>
         <tbody class="cw-table__tbody">
           <!-- Populated via JS template. -->
         </tbody>
@@ -125,7 +132,7 @@
 <script type="text/template" id="_cw-table-template">
 
   {{#each this}}
-    <tr>
+    <tr data-index="{{@index}}">
 
       {{#each this}}
 
@@ -186,20 +193,24 @@
 
       <a
         class="cw-clues__link"
+        data-direction="{{direction}}"
         data-row="{{row}}"
         data-col="{{col}}"
         href="#"
         tabindex="0"
       >
+
         <!-- Accessible description and  hint text. -->
         <span class="cw-accessible-hide">
-        {{description}}
-        {{hintAlt}}
+          {{description}}
+          {{hintAlt}}
         </span>
+
         <!-- Visible hint text. -->
         <span aria-hidden="true">
           {{hint}}
         </span>
+
       </a>
 
     </li>

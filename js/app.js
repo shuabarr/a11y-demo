@@ -19,6 +19,10 @@ var APP = (function () {
     APP.go()
   })
 
+  // Direction context.
+  var ACROSS = 'across'
+  var DOWN = 'down'
+
   // Key codes.
   var UP_ARROW = 38
   var LEFT_ARROW = 37
@@ -49,6 +53,12 @@ var APP = (function () {
         APP.state = GAME_DATA
         APP.state.showAnswers = false
 
+        APP.state.context = {
+          direction: ACROSS,
+          row: 0,
+          col: 0
+        }
+
         // Parse game answers.
         APP.state.gameAnswers =
           APP.utils.parseGameAnswers(
@@ -58,13 +68,13 @@ var APP = (function () {
         // Parse clues.
         APP.state.cluesAcross =
           APP.utils.parseClues(
-            APP.state.cluesAcross, 'across'
+            APP.state.cluesAcross, ACROSS
           )
 
         // Parse clues.
         APP.state.cluesDown =
           APP.utils.parseClues(
-            APP.state.cluesDown, 'down'
+            APP.state.cluesDown, DOWN
           )
 
         // Does user data exist?
@@ -91,13 +101,26 @@ var APP = (function () {
           var col = el.attr('data-col')
 
           el.val(value)
-          el.select()
 
           APP.utils.updateUserAnswers({
             row: row,
             col: col,
             value: value
           })
+
+          APP.utils.setContext({
+            row: row,
+            col: col
+          })
+        })
+      },
+      // APP.init.handleInputBlur
+      handleInputBlur: function () {
+        var x = 'blur.handleInputBlur'
+
+        $('.cw-table').off(x).on(x, '.cw-table__input', function (e) {
+          var c = 'cw-active-direction'
+          $('.' + c).removeClass(c)
         })
       },
       // APP.init.handleInputFocus
@@ -109,16 +132,32 @@ var APP = (function () {
         var timer
 
         $('.cw-table').off(x1).on(x1, '.cw-table__input', function (e) {
+          var el = $(e.target)
+          var row = el.attr('data-row')
+          var col = el.attr('data-col')
+
           timer = setTimeout(function () {
             clearTimeout(timer)
-            $(e.target).select()
+
+            APP.utils.setContext({
+              row: row,
+              col: col
+            })
           }, 0)
         })
 
         $('.cw-table').off(x2).on(x2, '.cw-table__input', function (e) {
+          var el = $(e.target)
+          var row = el.attr('data-row')
+          var col = el.attr('data-col')
+
           timer = setTimeout(function () {
             clearTimeout(timer)
-            $(e.target).select()
+
+            APP.utils.setContext({
+              row: row,
+              col: col
+            })
           }, 0)
         })
       },
@@ -170,12 +209,15 @@ var APP = (function () {
           )
 
           // Set in conditional.
+          var context = {}
           var inputNext
 
           // =========
           // UP ARROW.
           // =========
           if (isArrowUp) {
+            context.direction = DOWN
+
             inputNext = (
               trAll
               .eq(trIndex - 1)
@@ -188,6 +230,8 @@ var APP = (function () {
           // LEFT ARROW.
           // ===========
           } else if (isArrowLeft) {
+            context.direction = ACROSS
+
             inputNext = (
               tdAll
               .eq(tdIndex - 1)
@@ -198,6 +242,8 @@ var APP = (function () {
           // RIGHT ARROW.
           // ============
           } else if (isArrowRight) {
+            context.direction = ACROSS
+
             inputNext = (
               tdAll
               .eq(tdIndex + 1)
@@ -208,6 +254,8 @@ var APP = (function () {
           // DOWN ARROW.
           // ===========
           } else if (isArrowDown) {
+            context.direction = DOWN
+
             inputNext = (
               trAll
               .eq(trIndex + 1)
@@ -229,13 +277,16 @@ var APP = (function () {
             e.preventDefault()
           }
 
-          // "Select" next input.
+          // Valid input?
           if (isInputValid) {
-            inputNext.select()
+            // Get row and col.
+            context.row = inputNext.attr('data-row')
+            context.col = inputNext.attr('data-col')
+          }
 
-          // Or, current input.
-          } else {
-            el.select()
+          // Update context?
+          if (Object.keys(context).length) {
+            APP.utils.setContext(context)
           }
         })
       },
@@ -247,8 +298,9 @@ var APP = (function () {
           e.preventDefault()
 
           var el = $(e.target).closest('[data-row][data-col]')
-          var row = el.attr('data-row')
-          var col = el.attr('data-col')
+          var direction = el.attr('data-direction')
+          var row = el.attr('data-row') - 1
+          var col = el.attr('data-col') - 1
 
           var input = [
             '.cw-table__input',
@@ -256,7 +308,11 @@ var APP = (function () {
             '[data-col="' + col + '"]'
           ].join('')
 
-          $(input).select()
+          APP.utils.setContext({
+            direction: direction,
+            row: row,
+            col: col
+          })
         })
       },
       // APP.init.handleToggleAnswers
@@ -400,6 +456,9 @@ var APP = (function () {
             clue.word.length,
             'letters.'
           ].join(' ')
+
+          // Direction: "across" or "down".
+          clue.direction = direction
         })
 
         // Expose array.
@@ -426,8 +485,8 @@ var APP = (function () {
             var cellTemplate = {
               disabled: value === '_',
               readonly: readonly,
-              row: i + 1,
-              col: ii + 1,
+              row: i,
+              col: ii,
               value: (
                 showValues
                 ? value
@@ -440,18 +499,11 @@ var APP = (function () {
               var row = clue.row
               var col = clue.col
 
-              // Get zero index'ed' row.
-              if (row) {
-                row -= 1
-              }
-
-              // Get zero indexed col.
-              if (col) {
-                col -= 1
-              }
-
               // Equal?
-              if (row === i && col === ii) {
+              if (
+                row === i + 1 &&
+                col === ii + 1
+              ) {
                 cellTemplate.number = clue.number
               }
             })
@@ -461,18 +513,11 @@ var APP = (function () {
               var row = clue.row
               var col = clue.col
 
-              // Get zero index'ed' row.
-              if (row) {
-                row -= 1
-              }
-
-              // Get zero indexed col.
-              if (col) {
-                col -= 1
-              }
-
               // Equal?
-              if (row === i && col === ii) {
+              if (
+                row === i + 1 &&
+                col === ii + 1
+              ) {
                 cellTemplate.number = clue.number
               }
             })
@@ -491,8 +536,8 @@ var APP = (function () {
       // APP.utils.updateUserAnswers
       updateUserAnswers: function (o) {
         o = o || {}
-        var row = o.row - 1
-        var col = o.col - 1
+        var row = o.row
+        var col = o.col
         var value = o.value.toUpperCase()
 
         APP.state.userAnswers[row][col] = value
@@ -522,6 +567,90 @@ var APP = (function () {
         }
 
         message.attr('aria-hidden', !bool)
+      },
+      // Update [X,Y] and direction.
+      setContext: function (o) {
+        o = o || {}
+
+        APP.state.context.direction = (
+          o.direction ||
+          APP.state.context.direction
+        )
+
+        APP.state.context.col = (
+          o.col ||
+          APP.state.context.col
+        )
+
+        APP.state.context.row = (
+          o.row ||
+          APP.state.context.row
+        )
+
+        APP.utils.updateSquare(APP.state.context)
+        APP.utils.updateDirection(APP.state.context)
+      },
+      // Focus active square.
+      updateSquare: function (o) {
+        o = o || {}
+
+        var row = o.row
+        var col = o.col
+
+        var str = [
+          'input',
+          '[data-row="',
+          row,
+          '"]',
+          '[data-col="',
+          col,
+          '"]'
+        ].join('')
+
+        var el = $(str)
+        var hasFocus = el.is(':focus')
+
+        if (!hasFocus) {
+          el.select()
+        }
+      },
+      // Update direction UI.
+      updateDirection: function (o) {
+        o = o || {}
+
+        var direction = o.direction
+        var row = o.row
+        var col = o.col
+
+        // Set in conditional.
+        var num
+        var tag
+
+        if (direction === ACROSS) {
+          tag = 'tr'
+          num = row
+        } else if (direction === DOWN) {
+          tag = 'col'
+          num = col
+        }
+
+        var parent = '.cw-table'
+        var c = 'cw-active-direction'
+
+        var child = [
+          tag,
+          '[data-index="',
+          num,
+          '"]'
+        ].join('')
+
+        var el = [
+          parent,
+          child
+        ].join(' ')
+
+        $('.' + c).removeClass(c)
+        $(el).addClass(c)
       }
     }
   }

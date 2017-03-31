@@ -81,6 +81,15 @@ Notice area.
 }
 
 /*
+Active direction.
+==================================================
+*/
+
+.cw-active-direction {
+  background: #ade;
+}
+
+/*
 Table styles.
 ==================================================
 */
@@ -141,7 +150,7 @@ Input styles.
 */
 
 .cw-table__input {
-  background: #fff;
+  background: transparent;
   color: #000;
 
   border: 0;
