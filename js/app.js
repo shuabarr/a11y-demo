@@ -106,6 +106,7 @@ var APP = (function () {
           var col = el.attr('data-col')
 
           el.val(value)
+          el.select()
 
           // Update user answers.
           APP.utils.updateUserAnswers({
@@ -140,13 +141,20 @@ var APP = (function () {
       },
       // APP.init.handleInputFocus
       handleInputFocus: function () {
-        var x1 = 'click.handleInputFocus'
-        var x2 = 'focus.handleInputFocus'
+        var click = 'click.handleInputFocus'
+        var focus = 'focus.handleInputFocus'
+        var mouse = 'mousedown.handleInputFocus'
 
         var parent = '.cw-table'
         var child = '.cw-table__input:not([disabled]):not([readonly])'
 
-        $(parent).off(x1).on(x1, child, function (e) {
+        // ============
+        // Click event.
+        // ============
+
+        $(parent).off(click).on(click, child, function (e) {
+          e.preventDefault()
+
           var el = $(e.target)
           var row = el.attr('data-row')
           var col = el.attr('data-col')
@@ -157,7 +165,13 @@ var APP = (function () {
           })
         })
 
-        $(parent).off(x2).on(x2, child, function (e) {
+        // ============
+        // Focus event.
+        // ============
+
+        $(parent).off(focus).on(focus, child, function (e) {
+          e.preventDefault()
+
           var el = $(e.target)
           var row = el.attr('data-row')
           var col = el.attr('data-col')
@@ -166,6 +180,47 @@ var APP = (function () {
             row: row,
             col: col
           })
+        })
+
+        // ================
+        // Mousedown event.
+        // ================
+
+        $(parent).off(mouse).on(mouse, child, function (e) {
+          e.preventDefault()
+
+          var el = $(e.target)
+
+          var newRow = el.attr('data-row')
+          var newCol = el.attr('data-col')
+
+          var oldDirection = APP.state.context.direction
+          var oldRow = '' + APP.state.context.row
+          var oldCol = '' + APP.state.context.col
+
+          var hasActiveDirection =
+            !!$('.cw-active-direction').length
+
+          var switchDirection = !!(
+            hasActiveDirection &&
+            oldRow === newRow &&
+            oldCol === newCol
+          )
+
+          var newContext = {
+            row: newRow,
+            col: newCol
+          }
+
+          if (switchDirection) {
+            newContext.direction = (
+              oldDirection === DOWN
+              ? ACROSS
+              : DOWN
+            )
+          }
+
+          APP.utils.updateContext(newContext)
         })
       },
       // APP.init.handleInputKeys
