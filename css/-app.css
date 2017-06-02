@@ -81,6 +81,20 @@ Notice area.
 }
 
 /*
+Clue box.
+==================================================
+*/
+
+.cw-clue {
+  background: #ade;
+  border: 1px solid #ccc;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+
+/*
 Active direction.
 ==================================================
 */

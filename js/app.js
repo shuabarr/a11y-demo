@@ -569,6 +569,80 @@ var APP = (function () {
 
         message.attr('aria-hidden', !bool)
       },
+      // APP.utils.updateClue
+      updateClue: function (o) {
+        o = o || {}
+
+        var direction = o.direction
+        var row = o.row
+        var col = o.col
+
+        var cluesAcross = APP.state.cluesAcross
+        var cluesDown = APP.state.cluesDown
+
+        // Down mode?
+        var isDown = direction === 'down'
+        var isAcross = !isDown
+
+        // Set in conditional.
+        var cluesList
+
+        // Down/Across?
+        if (isDown) {
+          cluesList = cluesDown
+        } else {
+          cluesList = cluesAcross
+        }
+
+        // Set in conditional.
+        var hint
+        var number
+
+        // Loop through list.
+        cluesList.forEach(function (clue, i) {
+          // Does column match?
+          var matchCol =
+            parseFloat(col) ===
+            parseFloat(clue.col - 1)
+
+          // Does row match?
+          var matchRow =
+            parseFloat(row) ===
+            parseFloat(clue.row - 1)
+
+          // Column.
+          if (
+            isDown &&
+            matchCol
+          ) {
+            hint = clue.hint
+            number = clue.number
+
+          // Row.
+          } else if (
+            isAcross &&
+            matchRow
+          ) {
+            hint = clue.hint
+            number = clue.number
+          }
+        })
+
+        // Build prefix.
+        var prefix = [
+          number,
+          direction.split('')[0].toUpperCase()
+        ].join('')
+
+        // Build text.
+        var text = [
+          prefix,
+          hint
+        ].join(' ')
+
+        // Get clue area.
+        $('.cw-clue__text').html(text)
+      },
       // APP.utils.updateContext
       updateContext: function (o) {
         o = o || {}
@@ -595,6 +669,7 @@ var APP = (function () {
           col: col
         }
 
+        APP.utils.updateClue(APP.state.context)
         APP.utils.updateSquare(APP.state.context)
         APP.utils.updateDirection(APP.state.context)
       },

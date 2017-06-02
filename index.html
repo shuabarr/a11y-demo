@@ -24,13 +24,18 @@
       class="grid-100"
   		id="_cw-done-message"
     >
-  		<div role="alert" class="cw-notice">
+  		<div
+        class="cw-notice"
+        role="alert"
+      >
   		  <p>
     			<b>
     			  Congrats! You completed the puzzle. :)
     			</b>
   		  </p>
   		</div>
+    </div>
+
     </div>
 
     <section
@@ -94,6 +99,19 @@
         tablet-pull-50
       "
     >
+
+      <div
+        class="cw-clue"
+        role="/* TODO */"
+      >
+        <p
+          aria-live="assertive"
+          class="cw-clue__text"
+        >
+          Select a square to begin.
+        </p>
+      </div>
+
       <table role="presentation" class="cw-table">
         <caption class="cw-accessible-hide">
           5 by 5 crossword grid
@@ -109,6 +127,7 @@
           <!-- Populated via JS template. -->
         </tbody>
       </table>
+
     </div>
 
   </main>
