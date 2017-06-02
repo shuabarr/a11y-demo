@@ -641,7 +641,7 @@ var APP = (function () {
         ].join(' ')
 
         // Update clue area.
-        $('.cw-clue__text').html(text)
+        $('.cw-clue-area__text').html(text)
       },
       // APP.utils.updateContext
       updateContext: function (o) {
