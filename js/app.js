@@ -752,7 +752,7 @@ var APP = (function () {
         var isInputValid = (
           inputNext &&
           inputNext.length &&
-          inputNext.not(':disabled')
+          inputNext.is(':enabled')
         )
 
         // Valid input?
