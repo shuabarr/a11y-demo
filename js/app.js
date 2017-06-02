@@ -640,7 +640,7 @@ var APP = (function () {
           hint
         ].join(' ')
 
-        // Get clue area.
+        // Update clue area.
         $('.cw-clue__text').html(text)
       },
       // APP.utils.updateContext
