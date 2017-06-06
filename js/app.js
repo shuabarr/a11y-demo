@@ -597,6 +597,7 @@ var APP = (function () {
         // Set in conditional.
         var hint
         var number
+        var clueLength
 
         // Loop through list.
         cluesList.forEach(function (clue, i) {
@@ -616,7 +617,8 @@ var APP = (function () {
             matchCol
           ) {
             hint = clue.hint
-            number = clue.number
+            number = clue.number,
+            clueLength = clue.word.length
 
           // Row.
           } else if (
@@ -624,19 +626,28 @@ var APP = (function () {
             matchRow
           ) {
             hint = clue.hint
-            number = clue.number
+            number = clue.number,
+            clueLength = clue.word.length
           }
         })
 
+        //TODO
+		// Revisit how to split audible and visible text
+
         // Build prefix.
         var prefix = [
+          '<span class="cw-accessible-hide">Solving</span>',
           number,
-          direction.split('')[0].toUpperCase()
+          " ",
+          direction.charAt(0).toUpperCase(),
+          direction.substr(1),
+          ":"
         ].join('')
 
         // Build text.
         var text = [
           prefix,
+          '<span class="cw-accessible-hide">' + clueLength + ' letters</span>',
           hint
         ].join(' ')
 
